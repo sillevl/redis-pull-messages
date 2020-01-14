@@ -3,3 +3,7 @@ services:
   demo:
     build: 
       context: .
+  redis:
+    image: 'redis'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
