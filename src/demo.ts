@@ -1,4 +1,5 @@
-import { Tedis, TedisPool } from "tedis";
+import { Tedis } from "tedis";
+import Producer from "./producer";
 
 console.log("Hello world")
 
@@ -7,7 +8,8 @@ const tedis = new Tedis({
   host: "127.0.0.1"
 });
 
-tedis.keys("*")
-  .then( (keys) => {
-    console.log(keys);
-  });
+const setName :string = "messages";
+const producer = new Producer(tedis, setName);
+
+producer.produce( { one: 1 } )
+
