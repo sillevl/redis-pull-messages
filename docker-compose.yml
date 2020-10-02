@@ -1,8 +1,23 @@
 version: '3'
 services:
-  demo:
+  producer:
     build: 
       context: .
+    command: npm run producer
+    environment: 
+      REDIS_HOST: redis
+  consumer:
+    build: 
+      context: .
+    command: npm run consumer
+    environment: 
+      REDIS_HOST: redis
+  stats:
+    build: 
+      context: .
+    command: npm run stats
+    environment: 
+      REDIS_HOST: redis
   redis:
     image: 'redis'
     environment:

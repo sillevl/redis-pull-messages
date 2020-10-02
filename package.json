@@ -8,14 +8,20 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "prepare": "npm run build",
-    "start": "ts-node src/demo.ts"
+    "producer": "ts-node src/producer.ts",
+    "consumer": "ts-node src/consumer.ts",
+    "stats": "ts-node src/statistics.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/node": "^13.1.6",
+    "@types/yargs": "^15.0.7",
+    "dotenv": "^8.2.0",
     "tedis": "^0.1.10",
-    "typescript": "^3.7.4"
+    "ts-node": "^9.0.0",
+    "typescript": "^3.7.4",
+    "yargs": "^16.0.3"
   }
 }

@@ -1,19 +1,36 @@
 import { Tedis } from "tedis";
+import Sensor from "./fake-sensor"
+import { argv } from "yargs"
 
-export default class Producer {
+const tedis = new Tedis({
+  port: 6379,
+  host: process.env.REDIS_HOST || "127.0.0.1"
+});
 
-  tedis: Tedis;
-  setName: string;
+const sensor = new Sensor();
+const burstSize = argv.number || 100
 
-  public constructor(tedis: Tedis, setName: string) {
-    this.tedis = tedis;
-    this.setName = setName;
-  }
+const newMessage = async () => {
+  const message = sensor.getMeasurement()
+  console.log(`'${JSON.stringify(message)}'`)
 
-  public produce( data: { [propname: string]: number}) {
-    this.tedis.zadd(this.setName, { one: 1 })
-      .then( (result) => console.log(result))
-      .catch( err => console.log(err));
-  }
-
+  await tedis.rpush('temp-sensor-iot-app', `'${JSON.stringify(message)}'`)
+    // .then( (result) => console.log(result))
+    .catch( err => console.log(err));
 }
+
+console.log("*** PRODUCER ***")
+if(argv.burst) { 
+  (async () => {
+    console.log('Starting in burst mode!')
+    for(let i = 0;i < burstSize; i++) {
+      await newMessage()
+    }
+    tedis.close()
+  })()
+} else {
+  const interval = setInterval( () => {
+    newMessage()
+  }, 1000)
+}
+
