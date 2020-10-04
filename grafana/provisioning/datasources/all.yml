@@ -1,0 +1,8 @@
+datasources:
+    - name: 'Redis'
+      type: 'redis-datasource'
+      org_id: 1
+      url: 'redis://redis:6379'
+      is_default: true
+      version: 1
+      editable: true

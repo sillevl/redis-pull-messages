@@ -61,3 +61,9 @@ docker-compose run producer npm run producer -- --burst --number 100
 ```
 
 This instance will close as soon as it is finished.
+
+## Grafana Dashboard
+
+The docker-compose will setup a Grafana dashboard to monitor the redis queries and commands.
+
+Just browse to [`http://localhost:3000`](http://localhost:3000) to view the dashboard.
