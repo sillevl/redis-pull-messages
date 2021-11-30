@@ -42,13 +42,13 @@ To scale the instances you can use the following commands:
 Producers:
 
 ```cli
-docker-compose up -d --scale producer=10
+docker-compose scale producer=10
 ```
 
 Consumers:
 
 ```cli
-docker-compose up -d --scale consumer=10
+docker-compose scale consumer=10
 ```
 Pick any number you want.
 
